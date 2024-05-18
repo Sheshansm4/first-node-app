@@ -23,7 +23,7 @@ jobs:
         id: ecr-login
         uses: aws-actions/amazon-ecr-login@v1
         with:
-          mask-password: true
+          mask-password: 'true'
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Build, tag, and push Docker image to Amazon ECR
@@ -76,7 +76,7 @@ jobs:
             --cli-input-json file://task_definition.json \
             --region ${{ secrets.AWS_REGION }}
 
-       - name: Deploy to ECS
+      - name: Deploy to ECS
       run: |
         cd terraform
         terraform init

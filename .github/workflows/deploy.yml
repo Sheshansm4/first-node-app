@@ -76,18 +76,12 @@ jobs:
             --cli-input-json file://task_definition.json \
             --region ${{ secrets.AWS_REGION }}
 
-      - name: Deploy to ECS
-        env:
-          CLUSTER_NAME: hello-world-cluster
-          SERVICE_NAME: hello-world-service
-          TASK_DEFINITION: hello-world-task
-          CONTAINER_NAME: hello-world-container
-          CONTAINER_PORT: 3000
-        run: |
-          aws ecs update-service \
-            --cluster $CLUSTER_NAME \
-            --service $SERVICE_NAME \
-            --force-new-deployment \
-            --task-definition $TASK_DEFINITION \
-            --region ${{ secrets.AWS_REGION }}
+       - name: Deploy to ECS
+      run: |
+        cd terraform
+        terraform init
+        terraform apply -auto-approve
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 

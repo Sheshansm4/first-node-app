@@ -28,9 +28,8 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
       with:
-        mask-password: true
-        registry-type: private
-        region: ${{ secrets.AWS_REGION }}
+        mask-password: 'true'
+        aws-region: ${{ secrets.AWS_REGION }}
 
     - name: Push Docker image to ECR
       run: docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/hello-world-nodejs:latest
